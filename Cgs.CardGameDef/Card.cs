@@ -1,15 +1,11 @@
-/* This Source Code Form is subject to the terms of the Mozilla Public
- * License, v. 2.0. If a copy of the MPL was not distributed with this
- * file, You can obtain one at http://mozilla.org/MPL/2.0/. */
-
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text.RegularExpressions;
-using Newtonsoft.Json;
-
 namespace Cgs.CardGameDef
 {
+    using System;
+    using System.Collections.Generic;
+    using System.Linq;
+    using System.Text.RegularExpressions;
+    using Newtonsoft.Json;
+
     [JsonObject(MemberSerialization.OptIn)]
     public class Card : IComparable<Card>, IEquatable<Card>
     {
@@ -60,9 +56,9 @@ namespace Cgs.CardGameDef
             Dictionary<string, PropertyDefValuePair> properties, bool isReprint)
         {
             SourceGame = sourceGame ?? CardGame.Invalid;
-            Id = id.Clone() as string;
-            Name = !string.IsNullOrEmpty(name) ? name.Clone() as string : string.Empty;
-            SetCode = !string.IsNullOrEmpty(setCode) ? setCode.Clone() as string : SourceGame.SetCodeDefault;
+            Id = (string) id.Clone();
+            Name = string.IsNullOrEmpty(name) ? string.Empty : name.Clone() as string ?? string.Empty;
+            SetCode = string.IsNullOrEmpty(setCode) ? SourceGame.SetCodeDefault : setCode.Clone() as string ?? SourceGame.SetCodeDefault;
             Properties = properties ?? new Dictionary<string, PropertyDefValuePair>();
             Properties = CloneProperties();
             IsReprint = isReprint;
@@ -71,7 +67,7 @@ namespace Cgs.CardGameDef
         public Dictionary<string, PropertyDefValuePair> CloneProperties()
         {
             return Properties.ToDictionary(property => (string) property.Key.Clone(),
-                property => property.Value.Clone() as PropertyDefValuePair);
+                property => (PropertyDefValuePair) property.Value.Clone());
         }
 
         public string GetPropertyValueString(string propertyName)

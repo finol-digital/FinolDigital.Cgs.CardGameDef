@@ -16,13 +16,13 @@
 * limitations under the License.
 */
 
-using System;
-using System.Collections.Generic;
-using System.Text;
-using System.Text.RegularExpressions;
-
 namespace Cgs.CardGameDef.Decks
 {
+    using System;
+    using System.Collections.Generic;
+    using System.Text;
+    using System.Text.RegularExpressions;
+
     public static class Base32
     {
         private static readonly char[] Digits;

@@ -1,20 +1,15 @@
-/* This Source Code Form is subject to the terms of the Mozilla Public
- * License, v. 2.0. If a copy of the MPL was not distributed with this
- * file, You can obtain one at http://mozilla.org/MPL/2.0/. */
-
-using System;
-using System.Collections.Generic;
-using System.IO;
-using System.Linq;
-using System.Runtime.Serialization;
-using System.Text;
-using CardGameDef.Decks;
-using JetBrains.Annotations;
-using Newtonsoft.Json;
-using Newtonsoft.Json.Converters;
-
 namespace Cgs.CardGameDef
 {
+    using System;
+    using System.Collections.Generic;
+    using System.IO;
+    using System.Linq;
+    using System.Runtime.Serialization;
+    using System.Text;
+    using Cgs.CardGameDef.Decks;
+    using Newtonsoft.Json;
+    using Newtonsoft.Json.Converters;
+
     public delegate string OnNameChangeDelegate(string newName);
 
     [JsonConverter(typeof(StringEnumConverter))]
@@ -34,7 +29,6 @@ namespace Cgs.CardGameDef
         [EnumMember(Value = "set")] Set
     }
 
-    [PublicAPI]
     public class Deck : IEquatable<Deck>
     {
         public const string DefaultName = "Untitled";
@@ -48,12 +42,12 @@ namespace Cgs.CardGameDef
         protected CardGame SourceGame { get; set; }
 
         protected Deck(CardGame sourceGame, string name = DefaultName, DeckFileType fileType = DeckFileType.Txt,
-            IReadOnlyCollection<Card> cards = null)
+            IReadOnlyCollection<Card>? cards = null)
         {
             SourceGame = sourceGame ?? CardGame.Invalid;
-            Name = !string.IsNullOrEmpty(name) ? name.Clone() as string : DefaultName;
+            Name = string.IsNullOrEmpty(name) ? DefaultName : name.Clone() as string ?? DefaultName;
             FileType = fileType;
-            Cards = cards;
+            Cards = cards ?? new List<Card>();
         }
 
         public Dictionary<Card, int> DetermineCardCounts(IReadOnlyCollection<Card> cards)

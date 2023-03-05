@@ -1,11 +1,11 @@
 // https://github.com/RiotGames/LoRDeckCodes/blob/main/LoRDeckCodes/LoRDeckEncoder.cs
 
-using System;
-using System.Collections.Generic;
-using System.Linq;
-
 namespace Cgs.CardGameDef.Decks
 {
+    using System;
+    using System.Collections.Generic;
+    using System.Linq;
+
     public static class LoRDeckEncoder
     {
         private const int CardCodeLength = 7;

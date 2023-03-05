@@ -24,13 +24,13 @@ ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF
 THE POSSIBILITY OF SUCH DAMAGE.
 */
 
-using System;
-using System.Collections.Generic;
-using System.IO;
-using System.Linq;
-
 namespace Cgs.CardGameDef.Decks
 {
+    using System;
+    using System.Collections.Generic;
+    using System.IO;
+    using System.Linq;
+
     public static class Varint
     {
         private const byte AllButMsb = 0x7f;

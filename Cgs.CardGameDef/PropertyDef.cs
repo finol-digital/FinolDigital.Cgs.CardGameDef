@@ -1,16 +1,12 @@
-/* This Source Code Form is subject to the terms of the Mozilla Public
- * License, v. 2.0. If a copy of the MPL was not distributed with this
- * file, You can obtain one at http://mozilla.org/MPL/2.0/. */
-
-using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Runtime.Serialization;
-using Newtonsoft.Json;
-using Newtonsoft.Json.Converters;
-
 namespace Cgs.CardGameDef
 {
+    using System;
+    using System.Collections.Generic;
+    using System.ComponentModel;
+    using System.Runtime.Serialization;
+    using Newtonsoft.Json;
+    using Newtonsoft.Json.Converters;
+
     [JsonConverter(typeof(StringEnumConverter))]
     public enum PropertyType
     {
@@ -65,7 +61,7 @@ namespace Cgs.CardGameDef
 
         [JsonConstructor]
         public PropertyDef(string name, PropertyType type, string display = "", string displayEmpty = "",
-            bool displayEmptyFirst = false, List<PropertyDef> properties = null, string delimiter = null)
+            bool displayEmptyFirst = false, List<PropertyDef> properties = null, string delimiter = "")
         {
             Name = name ?? string.Empty;
             int objectDelimiterIdx = Name.IndexOf(ObjectDelimiter, StringComparison.Ordinal);
@@ -81,8 +77,12 @@ namespace Cgs.CardGameDef
                 if (type == PropertyType.Object || type == PropertyType.ObjectEnum ||
                     type == PropertyType.ObjectEnumList || type == PropertyType.ObjectList)
                     Properties.Clear();
-                Properties.Add(new PropertyDef(name?.Substring(objectDelimiterIdx + 1), type, display, displayEmpty,
-                    displayEmptyFirst, properties));
+                Properties.Add(new PropertyDef(name: name[(objectDelimiterIdx + 1)..],
+                                               Type,
+                                               Display,
+                                               DisplayEmpty,
+                                               DisplayEmptyFirst,
+                                               Properties));
             }
 
             Delimiter = delimiter;
@@ -110,8 +110,8 @@ namespace Cgs.CardGameDef
         {
             var propertyDefValuePair = new PropertyDefValuePair()
             {
-                Def = Def.Clone() as PropertyDef,
-                Value = Value.Clone() as string
+                Def = (PropertyDef)Def.Clone(),
+                Value = (string)Value.Clone()
             };
             return propertyDefValuePair;
         }
