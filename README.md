@@ -42,10 +42,10 @@ The GGS AutoUpdate Url that is used to download a card game is actually a pointe
 CGS generates the rest of the folder structure based off that *CardGameDef.json* file. 
 
 You can create your own json and [validate](https://www.jsonschemavalidator.net/) against these schema:
-- [CardGameDef](schema/CardGameDef.json)
-- [AllCards](schema/AllCards.json)
-- [AllDecks](schema/AllDecks.json)
-- [AllSets](schema/AllSets.json)
+- [CardGameDef](https://github.com/finol-digital/FinolDigital.Cgs.CardGameDef/blob/main/schema/CardGameDef.json)
+- [AllCards](https://github.com/finol-digital/FinolDigital.Cgs.CardGameDef/blob/main/schema/AllCards.json)
+- [AllDecks](https://github.com/finol-digital/FinolDigital.Cgs.CardGameDef/blob/main/schema/AllDecks.json)
+- [AllSets](https://github.com/finol-digital/FinolDigital.Cgs.CardGameDef/blob/main/schema/AllSets.json)
 
 ## Examples
 The default examples can be found in the [CGS GitHub Repository](https://github.com/finol-digital/Card-Game-Simulator/tree/develop/docs/games).
