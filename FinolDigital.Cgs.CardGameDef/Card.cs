@@ -48,7 +48,7 @@ namespace FinolDigital.Cgs.CardGameDef
             set => _imageWebUrl = value;
         }
 
-        private string _imageWebUrl;
+        private string _imageWebUrl = string.Empty;
 
         protected CardGame SourceGame { get; set; }
 
@@ -80,7 +80,7 @@ namespace FinolDigital.Cgs.CardGameDef
             if (enumDef == null || string.IsNullOrEmpty(property.Value))
                 return !string.IsNullOrEmpty(property.Value)
                     ? property.Value
-                    : property.Def.DisplayEmpty ?? string.Empty;
+                    : property.Def?.DisplayEmpty ?? string.Empty;
             return enumDef.GetStringFromPropertyValue(property.Value);
         }
 
@@ -121,7 +121,7 @@ namespace FinolDigital.Cgs.CardGameDef
                 return -1;
 
             var propertyToCompare = Properties.FirstOrDefault().Value;
-            if (propertyToCompare == null)
+            if (propertyToCompare == null || propertyToCompare.Def == null)
                 return 0;
 
             switch (propertyToCompare.Def.Type)
