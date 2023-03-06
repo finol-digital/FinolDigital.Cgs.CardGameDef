@@ -1,8 +1,7 @@
-# Cgs.CardGameDef
-Card Game Simulator (CGS) custom card game definition
+# FinolDigital.Cgs.CardGameDef
 
 ## CGS Core Concept
-A custom card game in CGS follows the `Cgs.CardGameDef` specification. 
+A custom card game in CGS follows the `FinolDigital.Cgs.CardGameDef` specification. 
 This specification primarily includes information on sets of cards and a definition of what properties those cards have. 
 Ancillary information can include decks and boards to use with the game. 
 See below for the full specification.

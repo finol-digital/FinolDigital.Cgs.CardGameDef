@@ -1,4 +1,4 @@
-namespace Cgs.CardGameDef
+namespace FinolDigital.Cgs.CardGameDef
 {
     using System;
     using System.Collections.Generic;
@@ -61,7 +61,7 @@ namespace Cgs.CardGameDef
 
         [JsonConstructor]
         public PropertyDef(string name, PropertyType type, string display = "", string displayEmpty = "",
-            bool displayEmptyFirst = false, List<PropertyDef> properties = null, string delimiter = "")
+            bool displayEmptyFirst = false, List<PropertyDef>? properties = null, string delimiter = "")
         {
             Name = name ?? string.Empty;
             int objectDelimiterIdx = Name.IndexOf(ObjectDelimiter, StringComparison.Ordinal);
@@ -77,7 +77,7 @@ namespace Cgs.CardGameDef
                 if (type == PropertyType.Object || type == PropertyType.ObjectEnum ||
                     type == PropertyType.ObjectEnumList || type == PropertyType.ObjectList)
                     Properties.Clear();
-                Properties.Add(new PropertyDef(name: name[(objectDelimiterIdx + 1)..],
+                Properties.Add(new PropertyDef(name == null ? string.Empty : name[(objectDelimiterIdx + 1)..],
                                                Type,
                                                Display,
                                                DisplayEmpty,
@@ -102,15 +102,15 @@ namespace Cgs.CardGameDef
 
     public class PropertyDefValuePair : ICloneable
     {
-        public PropertyDef Def { get; set; }
+        public PropertyDef? Def { get; set; }
 
-        public string Value { get; set; }
+        public string Value { get; set; } = string.Empty;
 
         public object Clone()
         {
             var propertyDefValuePair = new PropertyDefValuePair()
             {
-                Def = (PropertyDef)Def.Clone(),
+                Def = Def?.Clone() as PropertyDef,
                 Value = (string)Value.Clone()
             };
             return propertyDefValuePair;

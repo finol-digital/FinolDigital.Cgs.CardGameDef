@@ -16,7 +16,7 @@
 * limitations under the License.
 */
 
-namespace Cgs.CardGameDef.Decks
+namespace FinolDigital.Cgs.CardGameDef.Decks
 {
     using System;
     using System.Collections.Generic;

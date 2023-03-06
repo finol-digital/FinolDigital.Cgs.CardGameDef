@@ -1,4 +1,4 @@
-namespace Cgs.CardGameDef
+namespace FinolDigital.Cgs.CardGameDef
 {
     using System;
     using System.Collections.Generic;
