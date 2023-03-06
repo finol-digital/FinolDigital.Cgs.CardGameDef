@@ -11,9 +11,12 @@
     <PackageIcon>Logo.png</PackageIcon>
     <PackageIconUrl />
     <PackageTags>card game simulator json schema</PackageTags>
-    <PackageReleaseNotes>Initial release</PackageReleaseNotes>
+    <PackageReleaseNotes>Card Game Simulator (CGS) custom card game definition</PackageReleaseNotes>
     <RepositoryUrl>https://github.com/finol-digital/Cgs.CardGameDef</RepositoryUrl>
     <RepositoryType>git</RepositoryType>
+    <PackageReadmeFile>README.md</PackageReadmeFile>
+    <Title>CGS Custom Card Game</Title>
+    <PackageLicenseExpression>MIT</PackageLicenseExpression>
   </PropertyGroup>
 
   <ItemGroup>
@@ -24,6 +27,10 @@
     <None Include="..\Logo.png">
       <Pack>True</Pack>
       <PackagePath></PackagePath>
+    </None>
+    <None Include="..\README.md">
+      <Pack>True</Pack>
+      <PackagePath>\</PackagePath>
     </None>
   </ItemGroup>
 
