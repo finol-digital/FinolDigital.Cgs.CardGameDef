@@ -24,7 +24,7 @@ namespace FinolDigital.Cgs.CardGameDef
         // *Game:Id* = *Game:Name*@*Game:AutoUpdateUrl:Host*
         // This only works for a single instance of a game per host
         public string Id => _id ??= Name + Host;
-        private string _id;
+        private string? _id;
 
         public string Host => (AutoUpdateUrl != null && AutoUpdateUrl.IsWellFormedOriginalString())
             ? "@" + AutoUpdateUrl.Host
@@ -40,7 +40,7 @@ namespace FinolDigital.Cgs.CardGameDef
         [JsonProperty]
         [Description(
             "From allCardsUrl, CGS downloads the json that contains the Card data for the game. If CGS is able to successfully download this file, it will save it as AllCards.json.")]
-        public Uri AllCardsUrl { get; set; }
+        public Uri? AllCardsUrl { get; set; }
 
         [JsonProperty]
         [Description(
@@ -97,7 +97,7 @@ namespace FinolDigital.Cgs.CardGameDef
         [JsonProperty]
         [Description(
             "From allDecksUrl, CGS downloads the json that contains the Deck data for the game. If CGS is able to successfully download this file, it will save it as AllDecks.json.")]
-        public Uri AllDecksUrl { get; set; }
+        public Uri? AllDecksUrl { get; set; }
 
         [JsonProperty]
         [Description(
@@ -116,7 +116,7 @@ namespace FinolDigital.Cgs.CardGameDef
         [JsonProperty]
         [Description(
             "From allSetsUrl, CGS downloads the json that contains the Set data for the game. If CGS is able to successfully download this json, it will save it as AllSets.json.")]
-        public Uri AllSetsUrl { get; set; }
+        public Uri? AllSetsUrl { get; set; }
 
         [JsonProperty]
         [Description(
@@ -137,7 +137,7 @@ namespace FinolDigital.Cgs.CardGameDef
         [JsonProperty]
         [Description(
             "autoUpdateUrl indicates the url from which users download *Game:Name*.json, and CGS will automatically re-download the custom game from this url every <autoUpdate> days. This url is used in the *Game:Id*. You should host *Game:Name*.json at this url, but if you do not, you can set autoUpdate to -1, and there should be no issues.")]
-        public Uri AutoUpdateUrl { get; set; }
+        public Uri? AutoUpdateUrl { get; set; }
 
         [JsonProperty]
         [Description(
@@ -148,7 +148,7 @@ namespace FinolDigital.Cgs.CardGameDef
         [JsonProperty]
         [Description(
             "If bannerImageUrl is a valid url, CGS will download the image at that url and save it as Banner.<bannerImageFileType>. CGS will attempt to display the Banner.<bannerImageFileType> as an identifier to the user. If it is unable to read Banner.<bannerImageFileType>, CGS will simply display the CGS logo.")]
-        public Uri BannerImageUrl { get; set; }
+        public Uri? BannerImageUrl { get; set; }
 
         [JsonProperty]
         [Description(
@@ -159,7 +159,7 @@ namespace FinolDigital.Cgs.CardGameDef
         [JsonProperty]
         [Description(
             "If cardBackImageUrl is a valid url, CGS will download the image at that url and save it as CardBack.<cardBackImageFileType>. CGS will display the CardBack.<cardBackImageFileType> when the user turns a card facedown or if CGS is unable to find the appropriate card image. If CGS is unable to get a custom card back, CGS will use the default CGS card back.")]
-        public Uri CardBackImageUrl { get; set; }
+        public Uri? CardBackImageUrl { get; set; }
 
         [JsonProperty]
         [Description(
@@ -266,7 +266,7 @@ namespace FinolDigital.Cgs.CardGameDef
         [JsonProperty]
         [Description(
             "cgsDeepLink is a clickable url that will take the user directly to this game in CGS, which can be shared between users. This functionality must be configured through Firebase Dynamic Links.")]
-        public Uri CgsDeepLink { get; set; }
+        public Uri? CgsDeepLink { get; set; }
 
         [JsonProperty]
         [Description(
@@ -334,7 +334,7 @@ namespace FinolDigital.Cgs.CardGameDef
         [JsonProperty]
         [Description(
             "gamePlayDeckName is the name of the card stack shown when a player loads a deck. If <gamePlayDeckName> is empty, the *Deck:Name* is used.")]
-        public string GamePlayDeckName { get; set; }
+        public string GamePlayDeckName { get; set; } = "";
 
         [JsonProperty]
         [Description(
@@ -355,7 +355,7 @@ namespace FinolDigital.Cgs.CardGameDef
         [JsonProperty]
         [Description(
             "If playMatImageUrl is a valid url, CGS will download the image at that url and save it as PlayMat.<playMatImageFileType>. CGS will use the PlayMat.<playMatImageFileType> as the background image while in Play Mode. If CGS is unable to get this image, CGS will use the default table image.")]
-        public Uri PlayMatImageUrl { get; set; }
+        public Uri? PlayMatImageUrl { get; set; }
 
         [JsonProperty]
         [Description("playMatSize indicates the width and height in inches of the play area in Play Mode.")]
@@ -370,7 +370,7 @@ namespace FinolDigital.Cgs.CardGameDef
 
         [JsonProperty]
         [Description("rulesUrl should link to this game's online rulebook.")]
-        public Uri RulesUrl { get; set; }
+        public Uri? RulesUrl { get; set; }
 
         [JsonProperty]
         [Description(
@@ -413,7 +413,7 @@ namespace FinolDigital.Cgs.CardGameDef
         [DefaultValue("name")]
         public string SetNameIdentifier { get; set; } = "name";
 
-        public static (string name, string host) GetNameAndHost(string id)
+        public static (string name, string? host) GetNameAndHost(string id)
         {
             var name = string.IsNullOrEmpty(id) ? DefaultName : id;
             var hostIndex = name.LastIndexOf('@');
