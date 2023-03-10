@@ -1,11 +1,11 @@
 namespace FinolDigital.Cgs.CardGameDef
 {
+    using Newtonsoft.Json;
+    using Newtonsoft.Json.Converters;
     using System;
     using System.Collections.Generic;
     using System.ComponentModel;
     using System.Runtime.Serialization;
-    using Newtonsoft.Json;
-    using Newtonsoft.Json.Converters;
 
     [JsonConverter(typeof(StringEnumConverter))]
     public enum PropertyType
@@ -52,46 +52,47 @@ namespace FinolDigital.Cgs.CardGameDef
         [Description("List <displayEmpty> as the first option if this property is an enum?")]
         public bool DisplayEmptyFirst { get; set; }
 
-        [JsonProperty] public List<PropertyDef> Properties { get; set; }
-
         [JsonProperty]
         [Description(
             "If this property is a stringList or stringEnumList, the value will be delimited by this delimiter")]
         public string Delimiter { get; set; }
 
+        [JsonProperty] public List<PropertyDef> Properties { get; set; }
+
         [JsonConstructor]
         public PropertyDef(string name, PropertyType type, string display = "", string displayEmpty = "",
-            bool displayEmptyFirst = false, List<PropertyDef>? properties = null, string delimiter = "")
+            bool displayEmptyFirst = false, string delimiter = "", List<PropertyDef>? properties = null)
         {
             Name = name ?? string.Empty;
             int objectDelimiterIdx = Name.IndexOf(ObjectDelimiter, StringComparison.Ordinal);
             if (objectDelimiterIdx != -1)
-                Name = Name.Substring(0, objectDelimiterIdx);
+                Name = Name[..objectDelimiterIdx];
+
             Type = objectDelimiterIdx != -1 ? PropertyType.Object : type;
             Display = display ?? string.Empty;
             DisplayEmpty = displayEmpty ?? string.Empty;
             DisplayEmptyFirst = displayEmptyFirst;
+            Delimiter = delimiter ?? string.Empty;
             Properties = properties != null ? new List<PropertyDef>(properties) : new List<PropertyDef>();
+
             if (objectDelimiterIdx != -1)
             {
                 if (type == PropertyType.Object || type == PropertyType.ObjectEnum ||
                     type == PropertyType.ObjectEnumList || type == PropertyType.ObjectList)
                     Properties.Clear();
                 Properties.Add(new PropertyDef(name == null ? string.Empty : name[(objectDelimiterIdx + 1)..],
-                                               Type,
+                                               type,
                                                Display,
                                                DisplayEmpty,
                                                DisplayEmptyFirst,
-                                               Properties));
+                                               Delimiter,
+                                               properties));
             }
-
-            Delimiter = delimiter;
         }
 
         public object Clone()
         {
-            var propertyDef = new PropertyDef(Name, Type, Display, DisplayEmpty, DisplayEmptyFirst, Properties);
-            return propertyDef;
+            return new PropertyDef(Name, Type, Display, DisplayEmpty, DisplayEmptyFirst, Delimiter, Properties);
         }
 
         public override string ToString()
@@ -108,12 +109,11 @@ namespace FinolDigital.Cgs.CardGameDef
 
         public object Clone()
         {
-            var propertyDefValuePair = new PropertyDefValuePair()
+            return new PropertyDefValuePair()
             {
                 Def = Def?.Clone() as PropertyDef,
                 Value = (string)Value.Clone()
             };
-            return propertyDefValuePair;
         }
     }
 }
