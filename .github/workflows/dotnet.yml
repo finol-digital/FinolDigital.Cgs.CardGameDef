@@ -8,6 +8,9 @@ on:
     branches: [ "main" ]
 #  pull_request:
 #    branches: [ "main" ]
+  release:
+    types:
+      - published
 
 jobs:
   build:
@@ -27,16 +30,22 @@ jobs:
  #   - name: Test
  #     run: dotnet test --no-build --verbosity normal
     - name: Pack
-      run: dotnet pack --no-build
+      run: dotnet pack --configuration Release
     - name: Upload FinolDigital.Cgs.CardGameDef.1.0.1.nupkg
       uses: actions/upload-artifact@v3
       with:
         name: FinolDigital.Cgs.CardGameDef.1.0.1.nupkg
-        path: FinolDigital.Cgs.CardGameDef/bin/Debug/FinolDigital.Cgs.CardGameDef.1.0.1.nupkg
-    - name: Generate Schema
-      run: dotnet SchemaGeneration/bin/Debug/net6.0/SchemaGeneration.dll
+        path: FinolDigital.Cgs.CardGameDef/bin/Release/FinolDigital.Cgs.CardGameDef.1.0.1.nupkg
+    - name: Generate schema
+      run: dotnet SchemaGeneration/bin/Release/net6.0/SchemaGeneration.dll
     - name: Upload CardGameDef.json
       uses: actions/upload-artifact@v3
       with:
         name: CardGameDef.json
-        path: SchemaGeneration/bin/Debug/net6.0/CardGameDef.json
+        path: CardGameDef.json
+    - name: Update nuget settings
+      if: github.event.action == 'published'
+      run: dotnet nuget add source --username davidmfinol@gmail.com --password ${{ secrets.GITHUB_TOKEN }} --store-password-in-clear-text --name github "https://nuget.pkg.github.com/finol-digital/index.json"
+    - name: Push nuget package
+      if: github.event.action == 'published'
+      run: dotnet nuget push "FinolDigital.Cgs.CardGameDef/bin/Release/FinolDigital.Cgs.CardGameDef.1.0.1.nupkg" --source "github"
