@@ -18,7 +18,6 @@
     <Title>CGS Custom Card Game</Title>
     <PackageLicenseExpression>MIT</PackageLicenseExpression>
     <Copyright>Copyright (c) Finol Digital LLC 2023</Copyright>
-    <Version>1.0.1</Version>
   </PropertyGroup>
 
   <ItemGroup>
