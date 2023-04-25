@@ -14,13 +14,6 @@ namespace FinolDigital.Cgs.CardGameDef
 
         public static CardGame Invalid => new CardGame();
 
-        public static JsonSerializerSettings SerializerSettings =>
-            new JsonSerializerSettings()
-            {
-                ContractResolver = new CamelCasePropertyNamesContractResolver(),
-                ReferenceLoopHandling = ReferenceLoopHandling.Ignore
-            };
-
         // *Game:Id* = *Game:Name*@*Game:AutoUpdateUrl:Host*
         // This only works for a single instance of a game per host
         public string Id => _id ??= Name + Host;

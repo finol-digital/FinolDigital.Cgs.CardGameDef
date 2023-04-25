@@ -12,6 +12,8 @@ string jsonSchemaString = JsonSerializer.Serialize(jsonSchema, new JsonSerialize
 File.WriteAllText(SchemaFilePath, jsonSchemaString);*/
 
 using FinolDigital.Cgs.CardGameDef;
+using Newtonsoft.Json;
+using Newtonsoft.Json.Serialization;
 using NJsonSchema;
 using NJsonSchema.Generation;
 
@@ -24,7 +26,11 @@ string SchemaDescription = "Card Game Simulator (CGS) custom card game specifica
 var settings = new JsonSchemaGeneratorSettings
 {
     DefaultReferenceTypeNullHandling = ReferenceTypeNullHandling.NotNull,
-    SerializerSettings = CardGame.SerializerSettings
+    SerializerSettings = new JsonSerializerSettings()
+    {
+        ContractResolver = new CamelCasePropertyNamesContractResolver(),
+        ReferenceLoopHandling = ReferenceLoopHandling.Ignore
+    }
 };
 var jsonSchema = JsonSchema.FromType<CardGame>(settings);
 jsonSchema.SchemaVersion = SchemaVersion; // this unfortunately doesn't work, and manual edits are required to change from v4 to v2019
