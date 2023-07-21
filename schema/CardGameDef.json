@@ -337,6 +337,13 @@
       "type": "string",
       "description": "gamePlayDeckName is the name of the card stack shown when a player loads a deck. If <gamePlayDeckName> is empty, the *Deck:Name* is used."
     },
+    "gamePlayDeckPositions": {
+      "type": "array",
+      "description": "Each deck loaded during a game will be loaded to its corresponding position in gamePlayDeckPositions. The first deck loaded will go to the first position, second to second, etc.",
+      "items": {
+        "$ref": "#/definitions/Float2"
+      }
+    },
     "gameStartHandCount": {
       "type": "integer",
       "description": "gameStartHandCount indicates how many cards are automatically dealt from the deck to the hand, when a user loads a deck in Play Mode.",

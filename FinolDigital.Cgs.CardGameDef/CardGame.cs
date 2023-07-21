@@ -331,6 +331,11 @@ namespace FinolDigital.Cgs.CardGameDef
 
         [JsonProperty]
         [Description(
+            "Each deck loaded during a game will be loaded to its corresponding position in gamePlayDeckPositions. The first deck loaded will go to the first position, second to second, etc.")]
+        public List<Float2> GamePlayDeckPositions { get; set; } = new List<Float2>();
+
+        [JsonProperty]
+        [Description(
             "gameStartHandCount indicates how many cards are automatically dealt from the deck to the hand, when a user loads a deck in Play Mode.")]
         public int GameStartHandCount { get; set; }
 
