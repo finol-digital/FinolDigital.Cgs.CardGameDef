@@ -335,6 +335,10 @@ namespace FinolDigital.Cgs.CardGameDef
         public List<Float2> GamePlayDeckPositions { get; set; } = new List<Float2>();
 
         [JsonProperty]
+        [Description("gamePlayZones will appear in the Play Area in Play Mode.")]
+        public List<GamePlayZone> GamePlayZones { get; set; } = new List<GamePlayZone>();
+
+        [JsonProperty]
         [Description(
             "gameStartHandCount indicates how many cards are automatically dealt from the deck to the hand, when a user loads a deck in Play Mode.")]
         public int GameStartHandCount { get; set; }
@@ -418,8 +422,8 @@ namespace FinolDigital.Cgs.CardGameDef
             if (hostIndex <= 0)
                 return (name, null);
 
-            var host = name.Substring(hostIndex + 1);
-            name = name.Substring(0, hostIndex);
+            var host = name[(hostIndex + 1)..];
+            name = name[..hostIndex];
             return (name, host);
         }
 
