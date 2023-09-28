@@ -12,6 +12,11 @@
         public FacePreference Face { get; private set; } = FacePreference.Any;
 
         [JsonProperty]
+        [Description(
+            "If possible, CGS will take the defaultCardAction when a Card is double-clicked in the Game Play Zone. If null, defaults to <gameDefaulCardAction>")]
+        public CardAction? DefaultCardAction { get; set; } = null;
+
+        [JsonProperty]
         [Description("Indicates the Game Play Zone's position in inches")]
         public Float2 Position { get; private set; }
 
@@ -25,9 +30,10 @@
         public GamePlayZoneType Type { get; private set; } = GamePlayZoneType.Area;
 
         [JsonConstructor]
-        public GamePlayZone(FacePreference face, Float2 position, Float2 size, GamePlayZoneType type)
+        public GamePlayZone(FacePreference face, CardAction? defaultCardAction, Float2 position, Float2 size, GamePlayZoneType type)
         {
             Face = face;
+            DefaultCardAction = defaultCardAction;
             Position = position;
             Size = size;
             Type = type;

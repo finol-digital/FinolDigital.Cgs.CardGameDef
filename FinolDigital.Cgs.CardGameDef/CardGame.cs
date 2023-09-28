@@ -258,8 +258,8 @@ namespace FinolDigital.Cgs.CardGameDef
 
         [JsonProperty]
         [Description(
-            "cgsDeepLink is a clickable url that will take the user directly to this game in CGS, which can be shared between users. This functionality must be configured through Firebase Dynamic Links.")]
-        public Uri? CgsDeepLink { get; set; }
+            "cgsGamesLink is a clickable url that will take the user directly to this game on the CGS Games website, which can be shared between users.")]
+        public Uri? CgsGamesLink { get; set; }
 
         [JsonProperty]
         [Description(
