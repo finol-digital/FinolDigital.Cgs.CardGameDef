@@ -66,6 +66,7 @@ jobs:
     name: Update CGS
     runs-on: ubuntu-latest
     needs: build
+    if: github.event.action == 'published'
     steps:
       - name: Checkout Repository
         uses: actions/checkout@v3
@@ -93,5 +94,5 @@ jobs:
         with:
           token: ${{ secrets.CGS_PAT }}
           path: Card-Game-Simulator
-          branch: ${{ needs.build.outputs.version }}
-          title: ${{ needs.build.outputs.version }}
+          branch: cardgamedef-${{ needs.build.outputs.version }}
+          title: CardGameDef ${{ needs.build.outputs.version }}
