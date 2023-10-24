@@ -263,6 +263,11 @@ namespace FinolDigital.Cgs.CardGameDef
 
         [JsonProperty]
         [Description(
+            "copyright indicates the legal owner of this Card Game. CGS will display this value in the bottom-left corner of the Main Menu.")]
+        public string Copyright { get; set; } = "";
+
+        [JsonProperty]
+        [Description(
             "When saving or loading a deck with <deckFileType> NOT txt, deckFileAltId refers to the *Card:Property* used to uniquely identify each Card. For hsd, this is stored as a varint within the deck string.")]
         [DefaultValue("dbfId")]
         public string DeckFileAltId { get; set; } = "dbfId";

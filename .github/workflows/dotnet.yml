@@ -11,10 +11,11 @@ on:
       - published
 
 jobs:
+
   build:
-
     runs-on: ubuntu-latest
-
+    outputs:
+      version: ${{ steps.versioning.outputs.version }}
     steps:
     - name: Checkout Repository
       uses: actions/checkout@v3
@@ -35,6 +36,11 @@ jobs:
         dotnet-version: 6.0.x
     - name: Build
       run: dotnet build --configuration Release /p:Version=${VERSION}
+    - name: Upload FinolDigital.Cgs.CardGameDef.dll
+      uses: actions/upload-artifact@v3
+      with:
+        name: FinolDigital.Cgs.CardGameDef.dll
+        path: FinolDigital.Cgs.CardGameDef/bin/Release/netstandard2.1/FinolDigital.Cgs.CardGameDef.dll
     - name: Generate schema
       run: dotnet SchemaGeneration/bin/Release/net6.0/SchemaGeneration.dll
     - name: Upload CardGameDef.json
@@ -55,3 +61,37 @@ jobs:
     - name: Push nuget package
       if: github.event.action == 'published'
       run: dotnet nuget push "FinolDigital.Cgs.CardGameDef/bin/Release/FinolDigital.Cgs.CardGameDef.${VERSION}.nupkg" --source "github"
+
+  updateCgs:
+    name: Update CGS
+    runs-on: ubuntu-latest
+    needs: build
+    steps:
+      - name: Checkout Repository
+        uses: actions/checkout@v3
+        with:
+          path: FinolDigital.Cgs.CardGameDef
+      - name: Checkout CGS project
+        uses: actions/checkout@v3
+        with:
+          repository: finol-digital/Card-Game-Simulator
+          token: ${{ secrets.CGS_PAT }}
+          path: Card-Game-Simulator
+          lfs: true
+      - name: Download FinolDigital.Cgs.CardGameDef.dll
+        uses: actions/download-artifact@v3
+        with:
+          name: FinolDigital.Cgs.CardGameDef.dll
+          path: Card-Game-Simulator/Assets/Plugins
+      - name: Download CardGameDef.json
+        uses: actions/download-artifact@v3
+        with:
+          name: CardGameDef.json
+          path: Card-Game-Simulator/docs/schema
+      - name: Raise PR to Card-Game-Simulator
+        uses: peter-evans/create-pull-request@v5
+        with:
+          token: ${{ secrets.CGS_PAT }}
+          path: Card-Game-Simulator
+          branch: ${{ needs.build.outputs.version }}
+          title: ${{ needs.build.outputs.version }}
