@@ -18,7 +18,7 @@ jobs:
       version: ${{ steps.versioning.outputs.version }}
     steps:
     - name: Checkout Repository
-      uses: actions/checkout@v3
+      uses: actions/checkout@v4
       with:
         fetch-depth: 0
     - name: Get Version
@@ -69,11 +69,11 @@ jobs:
     if: github.event.action == 'published'
     steps:
       - name: Checkout Repository
-        uses: actions/checkout@v3
+        uses: actions/checkout@v4
         with:
           path: FinolDigital.Cgs.CardGameDef
       - name: Checkout CGS project
-        uses: actions/checkout@v3
+        uses: actions/checkout@v4
         with:
           repository: finol-digital/Card-Game-Simulator
           token: ${{ secrets.CGS_PAT }}
