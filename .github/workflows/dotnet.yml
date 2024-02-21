@@ -37,21 +37,21 @@ jobs:
     - name: Build
       run: dotnet build --configuration Release /p:Version=${VERSION}
     - name: Upload FinolDigital.Cgs.CardGameDef.dll
-      uses: actions/upload-artifact@v3
+      uses: actions/upload-artifact@v4
       with:
         name: FinolDigital.Cgs.CardGameDef.dll
         path: FinolDigital.Cgs.CardGameDef/bin/Release/netstandard2.1/FinolDigital.Cgs.CardGameDef.dll
     - name: Generate schema
       run: dotnet SchemaGeneration/bin/Release/net6.0/SchemaGeneration.dll
     - name: Upload CardGameDef.json
-      uses: actions/upload-artifact@v3
+      uses: actions/upload-artifact@v4
       with:
         name: CardGameDef.json
         path: CardGameDef.json
     - name: Pack
       run: dotnet pack --configuration Release /p:Version=${VERSION}
     - name: Upload nuget package
-      uses: actions/upload-artifact@v3
+      uses: actions/upload-artifact@v4
       with:
         name: FinolDigital.Cgs.CardGameDef.${{ steps.versioning.outputs.version }}.nupkg
         path: FinolDigital.Cgs.CardGameDef/bin/Release/FinolDigital.Cgs.CardGameDef.${{ steps.versioning.outputs.version }}.nupkg
