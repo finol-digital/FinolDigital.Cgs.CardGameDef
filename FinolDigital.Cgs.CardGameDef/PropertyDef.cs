@@ -101,11 +101,12 @@ namespace FinolDigital.Cgs.CardGameDef
         }
     }
 
+    [JsonObject(MemberSerialization.OptIn)]
     public class PropertyDefValuePair : ICloneable
     {
-        public PropertyDef? Def { get; set; }
+        [JsonProperty] public PropertyDef? Def { get; set; }
 
-        public string Value { get; set; } = string.Empty;
+        [JsonProperty] public string Value { get; set; } = string.Empty;
 
         public object Clone()
         {
@@ -114,6 +115,11 @@ namespace FinolDigital.Cgs.CardGameDef
                 Def = Def?.Clone() as PropertyDef,
                 Value = (string)Value.Clone()
             };
+        }
+
+        public override string ToString()
+        {
+            return JsonConvert.SerializeObject(this);
         }
     }
 }

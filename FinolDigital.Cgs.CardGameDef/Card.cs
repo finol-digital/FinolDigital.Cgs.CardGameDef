@@ -12,7 +12,7 @@ namespace FinolDigital.Cgs.CardGameDef
         [JsonProperty] public string Id { get; private set; }
         [JsonProperty] public string Name { get; private set; }
         [JsonProperty] public string SetCode { get; private set; }
-        protected Dictionary<string, PropertyDefValuePair> Properties { get; private set; }
+        [JsonProperty] protected Dictionary<string, PropertyDefValuePair> Properties { get; private set; }
         public bool IsReprint { get; private set; }
 
         public string ImageWebUrl
