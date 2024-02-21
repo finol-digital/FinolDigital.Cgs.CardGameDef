@@ -90,7 +90,7 @@ jobs:
           name: CardGameDef.json
           path: Card-Game-Simulator/docs/schema
       - name: Raise PR to Card-Game-Simulator
-        uses: peter-evans/create-pull-request@v5
+        uses: peter-evans/create-pull-request@v6
         with:
           token: ${{ secrets.CGS_PAT }}
           path: Card-Game-Simulator
