@@ -21,6 +21,10 @@
         public Float2 Position { get; private set; }
 
         [JsonProperty]
+        [Description("Indicates the Game Play Zone's rotation in degrees")]
+        public int Rotation { get; private set; }
+
+        [JsonProperty]
         [Description("Indicates the Game Play Zone's width and height in inches")]
         public Float2 Size { get; private set; }
 
@@ -30,11 +34,12 @@
         public GamePlayZoneType Type { get; private set; } = GamePlayZoneType.Area;
 
         [JsonConstructor]
-        public GamePlayZone(FacePreference face, CardAction? defaultCardAction, Float2 position, Float2 size, GamePlayZoneType type)
+        public GamePlayZone(FacePreference face, CardAction? defaultCardAction, Float2 position, int rotation, Float2 size, GamePlayZoneType type)
         {
             Face = face;
             DefaultCardAction = defaultCardAction;
             Position = position;
+            Rotation = rotation;
             Size = size;
             Type = type;
         }
