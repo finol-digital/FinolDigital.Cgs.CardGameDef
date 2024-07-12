@@ -8,9 +8,9 @@ namespace FinolDigital.Cgs.CardGameDef
     public enum CardAction
     {
         [EnumMember(Value = "move")] Move,
-        [EnumMember(Value = "flip")] Flip,
         [EnumMember(Value = "rotate")] Rotate,
         [EnumMember(Value = "tap")] Tap,
-        [EnumMember(Value = "zoom")] Zoom
+        [EnumMember(Value = "flip")] Flip,
+        [EnumMember(Value = "discard")] Discard
     }
 }
