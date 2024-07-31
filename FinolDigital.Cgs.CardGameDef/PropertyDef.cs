@@ -57,11 +57,20 @@ namespace FinolDigital.Cgs.CardGameDef
             "If this property is a stringList or stringEnumList, the value will be delimited by this delimiter")]
         public string Delimiter { get; set; }
 
+        [JsonProperty]
+        [Description("If the Card is a back Face: This name can be referenced to lookup a Card's property")]
+        public string BackName { get; set; }
+
+        [JsonProperty]
+        [Description("If the Card is a front Face: This name can be referenced to lookup a Card's property")]
+        public string FrontName { get; set; }
+
         [JsonProperty] public List<PropertyDef> Properties { get; set; }
 
         [JsonConstructor]
         public PropertyDef(string name, PropertyType type, string display = "", string displayEmpty = "",
-            bool displayEmptyFirst = false, string delimiter = "", List<PropertyDef>? properties = null)
+            bool displayEmptyFirst = false, string delimiter = "", string backName = "", string frontName = "",
+            List<PropertyDef>? properties = null)
         {
             Name = name ?? string.Empty;
             int objectDelimiterIdx = Name.IndexOf(ObjectDelimiter, StringComparison.Ordinal);
@@ -73,6 +82,8 @@ namespace FinolDigital.Cgs.CardGameDef
             DisplayEmpty = displayEmpty ?? string.Empty;
             DisplayEmptyFirst = displayEmptyFirst;
             Delimiter = delimiter ?? string.Empty;
+            BackName = backName ?? string.Empty;
+            FrontName = frontName ?? string.Empty;
             Properties = properties != null ? new List<PropertyDef>(properties) : new List<PropertyDef>();
 
             if (objectDelimiterIdx != -1)
@@ -86,13 +97,15 @@ namespace FinolDigital.Cgs.CardGameDef
                                                DisplayEmpty,
                                                DisplayEmptyFirst,
                                                Delimiter,
+                                               BackName,
+                                               FrontName,
                                                properties));
             }
         }
 
         public object Clone()
         {
-            return new PropertyDef(Name, Type, Display, DisplayEmpty, DisplayEmptyFirst, Delimiter, Properties);
+            return new PropertyDef(Name, Type, Display, DisplayEmpty, DisplayEmptyFirst, Delimiter, BackName, FrontName, Properties);
         }
 
         public override string ToString()

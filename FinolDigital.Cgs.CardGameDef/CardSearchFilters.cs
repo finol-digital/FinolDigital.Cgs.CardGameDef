@@ -10,6 +10,7 @@ namespace FinolDigital.Cgs.CardGameDef
         public const string KeywordFormat = Delimiter + "{0}{1}";
         public const string KeywordId = "id:";
         public const string KeywordSet = "set:";
+        public const string KeywordBack = "back:";
         public const string KeywordIs = "is:";
         public const string KeywordNot = "not:";
         public const string KeywordString = ":";
@@ -23,6 +24,8 @@ namespace FinolDigital.Cgs.CardGameDef
         public string Name { get; set; } = "";
 
         public string SetCode { get; set; } = "";
+
+        public string BackFaceId { get; set; } = "";
 
         public Dictionary<string, string> StringProperties { get; } = new Dictionary<string, string>();
 
@@ -39,6 +42,7 @@ namespace FinolDigital.Cgs.CardGameDef
             Id = string.Empty;
             Name = string.Empty;
             SetCode = string.Empty;
+            BackFaceId = string.Empty;
             StringProperties.Clear();
             IntMinProperties.Clear();
             IntMaxProperties.Clear();
@@ -94,6 +98,8 @@ namespace FinolDigital.Cgs.CardGameDef
                     Id = token.Substring(KeywordId.Length);
                 else if (token.StartsWith(KeywordSet))
                     SetCode = token.Substring(KeywordSet.Length);
+                else if (token.StartsWith(KeywordBack))
+                    BackFaceId = token.Substring(KeywordBack.Length);
                 else if (token.StartsWith(KeywordIs))
                     BoolProperties.Add(token.Substring(KeywordIs.Length), true);
                 else if (token.StartsWith(KeywordNot))
@@ -142,6 +148,12 @@ namespace FinolDigital.Cgs.CardGameDef
             {
                 var filterValue = SetCode.Contains(Delimiter) ? Quote + SetCode + Quote : SetCode;
                 filters.AppendFormat(KeywordFormat, KeywordSet, filterValue);
+            }
+
+            if (!string.IsNullOrEmpty(BackFaceId))
+            {
+                var filterValue = BackFaceId.Contains(Delimiter) ? Quote + BackFaceId + Quote : BackFaceId;
+                filters.AppendFormat(KeywordFormat, KeywordBack, filterValue);
             }
 
             foreach (var filter in StringProperties)

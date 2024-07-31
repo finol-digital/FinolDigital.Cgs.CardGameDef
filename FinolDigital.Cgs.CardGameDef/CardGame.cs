@@ -145,6 +145,11 @@ namespace FinolDigital.Cgs.CardGameDef
 
         [JsonProperty]
         [Description(
+            "CGS will go through each CardBackFaceImageUrl and save the data from *CardBackFaceImageUrl:Url* to 'backs/*CardBackFaceImageUrl:Id*.<cardBackImageFileType>'")]
+        public List<CardBackFaceImageUrl> CardBackFaceImageUrls { get; set; } = new List<CardBackFaceImageUrl>();
+
+        [JsonProperty]
+        [Description(
             "cardBackImageFileType is the file type extension for the image file that CGS downloads from cardBackImageUrl.")]
         [DefaultValue("png")]
         public string CardBackImageFileType { get; set; } = "png";
@@ -185,6 +190,11 @@ namespace FinolDigital.Cgs.CardGameDef
         [Description(
             "cardImageUrl is a parameterized template url from which CGS downloads card image files if <cardImageProperty> is empty. Parameters: {cardId}=*Card:Id*, {cardName}=*Card:Name*, {cardSet}=*Card:SetCode*, {cardImageFileType}=<cardImageFileType>, {<property>}=*Card:<property>*. Example: https://www.cardgamesimulator.com/games/Standard/sets/{cardSet}/{cardId}.{cardImageFileType}")]
         public string CardImageUrl { get; set; } = "";
+
+        [JsonProperty]
+        [Description(
+            "When defining a Card in AllCards.json or AllSets.json, you can have the *Card:Name* of the back face mapped to the field defined by cardNameBackIdentifier. Most custom games will likely want to keep the default cardNameBackIdentifier.")]
+        public string CardNameBackIdentifier { get; set; } = "";
 
         [JsonProperty]
         [Description(

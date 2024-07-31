@@ -14,6 +14,8 @@ namespace FinolDigital.Cgs.CardGameDef
         [JsonProperty] public string SetCode { get; private set; }
         [JsonProperty] protected Dictionary<string, PropertyDefValuePair> Properties { get; private set; }
         public bool IsReprint { get; private set; }
+        [JsonProperty] public bool IsBackFaceCard { get; private set; }
+        [JsonProperty] public string BackFaceId { get; private set; }
 
         public string ImageWebUrl
         {
@@ -53,7 +55,8 @@ namespace FinolDigital.Cgs.CardGameDef
         protected CardGame SourceGame { get; set; }
 
         public Card(CardGame sourceGame, string id, string name, string setCode,
-            Dictionary<string, PropertyDefValuePair> properties, bool isReprint)
+            Dictionary<string, PropertyDefValuePair> properties, bool isReprint,
+            bool isBackFaceCard = false, string backFaceId = "")
         {
             SourceGame = sourceGame ?? CardGame.Invalid;
             Id = (string) id.Clone();
@@ -62,6 +65,8 @@ namespace FinolDigital.Cgs.CardGameDef
             Properties = properties ?? new Dictionary<string, PropertyDefValuePair>();
             Properties = CloneProperties();
             IsReprint = isReprint;
+            IsBackFaceCard = isBackFaceCard;
+            BackFaceId = backFaceId ?? string.Empty;
         }
 
         public Dictionary<string, PropertyDefValuePair> CloneProperties()

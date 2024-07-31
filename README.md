@@ -25,6 +25,8 @@ The structure of this custom game folder is:
   - Banner.\<bannerImageFileType\>
   - CardBack.\<cardBackImageFileType\>
   - PlayMat.\<playMatImageFileType\>
+  - backs/
+    * *Card:Id*.\<cardBackImageFileType\>
   - boards/
     * *GameBoard:Id*.\<gameBoardFileType\>
     * ...
