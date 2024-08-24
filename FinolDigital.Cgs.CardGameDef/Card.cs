@@ -27,7 +27,10 @@ namespace FinolDigital.Cgs.CardGameDef
                     return url;
                 // NOTE: cardImageUrl uses this custom implementation of uri-template to allow for more versatility
                 url = cardImageUrl;
-                url = url.Replace("{cardId}", Id);
+                var id = Id;
+                if (!IsBackFaceCard && !string.IsNullOrEmpty(BackFaceId) && id.EndsWith("." + BackFaceId))
+                    id = id[..id.LastIndexOf('.')];
+                url = url.Replace("{cardId}", id);
                 url = url.Replace("{cardName}", Name);
                 url = url.Replace("{cardSet}", SetCode);
                 url = url.Replace("{cardImageFileType}", SourceGame.CardImageFileType);
