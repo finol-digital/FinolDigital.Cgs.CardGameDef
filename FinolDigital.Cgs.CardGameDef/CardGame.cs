@@ -296,6 +296,11 @@ namespace FinolDigital.Cgs.CardGameDef
 
         [JsonProperty]
         [Description(
+            "deckPlayCards indicates cards that should automatically be played when a player loads a deck in Play Mode.")]
+        public List<DeckPlayCard> DeckPlayCards { get; set; } = new List<DeckPlayCard>();
+
+        [JsonProperty]
+        [Description(
             "For networked games, CGS will use deckSharePreference to: ask players if they want to share the same deck, force all players to share the same deck, or force an individual deck for each player.")]
         [DefaultValue("share")]
         public SharePreference DeckSharePreference { get; set; } = SharePreference.Share;
@@ -355,12 +360,16 @@ namespace FinolDigital.Cgs.CardGameDef
 
         [JsonProperty]
         [Description(
-            "gameStartHandCount indicates how many cards are automatically dealt from the deck to the hand, when a user loads a deck in Play Mode.")]
-        public int GameStartHandCount { get; set; }
+            "gameStartDecks indicates decks that should automatically be loaded when a player starts playing in Play Mode.")]
+        public List<DeckUrl> GameStartDecks { get; set; } = new List<DeckUrl>();
 
         [JsonProperty]
         [Description(
-            "gameStartPointsCount indicates how many points are assigned to each player, when that player loads a deck in Play Mode.")]
+            "gameStartHandCount indicates how many cards are automatically dealt from a loaded deck to a player's hand.")]
+        public int GameStartHandCount { get; set; }
+
+        [JsonProperty]
+        [Description("gameStartPointsCount indicates how many points are automatically assigned to each player.")]
         public int GameStartPointsCount { get; set; }
 
         [JsonProperty]
