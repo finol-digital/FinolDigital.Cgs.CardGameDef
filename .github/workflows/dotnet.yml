@@ -43,6 +43,8 @@ jobs:
         path: FinolDigital.Cgs.CardGameDef/bin/Release/netstandard2.1/FinolDigital.Cgs.CardGameDef.dll
     - name: Generate schema
       run: dotnet SchemaGeneration/bin/Release/net6.0/SchemaGeneration.dll
+    - name: Copy schema
+      run: cp CardGameDef.json schema/
     - name: Upload CardGameDef.json
       uses: actions/upload-artifact@v4
       with:
@@ -61,6 +63,14 @@ jobs:
     - name: Push nuget package
       if: github.event.action == 'published'
       run: dotnet nuget push "FinolDigital.Cgs.CardGameDef/bin/Release/FinolDigital.Cgs.CardGameDef.${VERSION}.nupkg" --source "github"
+    - name: Raise PR for schema
+      if: github.event.action == 'published'
+      uses: peter-evans/create-pull-request@v7
+      with:
+        token: ${{ secrets.CGS_PAT }}
+        path: schema
+        branch: cardgamedef-${{ needs.build.outputs.version }}
+        title: CardGameDef ${{ needs.build.outputs.version }}
 
   updateCgs:
     name: Update CGS
